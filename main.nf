@@ -24,7 +24,6 @@ nextflow.enable.dsl = 2
 log.info """\
 npNF  -  N F    v 2.1 
 ================================
-run_parent_dir                  : $params.run_parent_dir
 output_dir                      : $params.output_dir
 sample_sheet                    : $params.sample_sheet
 KN99_novoalign_index            : $params.KN99_novoalign_index
@@ -49,7 +48,7 @@ include {
 workflow {
 
     Channel
-    .fromPath(params.fastq_file_list)
+    .fromPath(params.sample_sheet)
     .splitCsv(header:true)
     .map{row-> tuple(row.runNumber, file(row.fastqFilePath), row.strandedness) }
     .set { fastqc_input_ch }
