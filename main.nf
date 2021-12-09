@@ -24,6 +24,8 @@ nextflow.enable.dsl = 2
 log.info """\
 npNF  -  N F    v 2.1 
 ================================
+run_parent_dir                  : $params.run_parent_dir
+output_dir                      : $params.output_dir
 sample_sheet                    : $params.sample_sheet
 KN99_novoalign_index            : $params.KN99_novoalign_index
 KN99_stranded_annotation_file   : $params.KN99_stranded_annotation_file

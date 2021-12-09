@@ -29,6 +29,7 @@ Paste in the following, with the correct paths.
 ```{raw}
 
 params {
+    run_parent_dir                  = /path/to/directory_containing_the_run
     output_dir                      = /path/to/output/dir
     sample_sheet                    = /path/to/samplesheet.csv
     KN99_novoalign_index            = /path/to/kn99_novoalign_index
@@ -44,6 +45,7 @@ here is an example
 ```{raw}
 
 params {
+    run_parent_dir                  = /scratch/mblab/$USER/rnaseq_pipeline/scratch_sequence
     output_dir                      = /scratch/mblab/$USER/rnaseq_pipeline
     sample_sheet                    = /scratch/mblab/$USER/rnaseq_pipeline/sample_sheets/run_12345.csv
     KN99_novoalign_index            = /scratch/mblab/$USER/rnaseq_pipeline/genome_files/KN99/novoalign.index
