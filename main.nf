@@ -1,19 +1,7 @@
-/*
- * Copyright (c) 2021, Chase Mateusiak.
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. 
- * 
- * This Source Code Form is "Incompatible With Secondary Licenses", as
- * defined by the Mozilla Public License, v. 2.0.
- */
-
 
 /* 
- * bartNPNF is a proof concept pipeline for nextflow
+ * Legacy Brentlab RnaSeq pipeline, using HTCF software
  * 
- * Chase Mateusiak
  */
 
 /* 
@@ -22,7 +10,7 @@
 nextflow.enable.dsl = 2
 
 log.info """\
-npNF  -  N F    v 2.1 
+Brentlab_legacy_Rnaseq  -  N F    v 2.1 
 ================================
 output_dir                      : $params.output_dir
 sample_sheet                    : $params.sample_sheet
@@ -52,24 +40,20 @@ workflow {
     .splitCsv(header:true)
     .map{row-> tuple(row.runNumber, file(row.fastqFilePath), row.strandedness) }
     .set { fastqc_input_ch }
-
       
+      // PART 1: FastQC
+      FASTQC(fastqc_input_ch)
+
       // PART 1: Align
-      NOVOALIGN(genes_ch,
-                    params.nps,
-                    params.ntree, 
-                    params.test_data)
+      NOVOALIGN(FASTQC.out[0])
       
       // PART 2: Count
-      HTSEQ(genes_ch,
-                    params.nps,
-                    params.ntree, 
-                    params.test_data)
+      HTSEQ(NOVOALIGN.out[0])
+
+      // PART 3: Index Bams
+      BAM_INDEX(HTSEQ.out[0])
       
       // PART 3: Multiqc
-      MULTIQC(genes_ch,
-                    params.nps,
-                    params.ntree, 
-                    params.test_data)
+      MULTIQC(FASTQ.OUT[1].mix(NOVOALIGN.OUT[1]).mix(HTSEQ.out[1]).collect())
 
 }

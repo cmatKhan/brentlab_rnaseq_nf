@@ -7,11 +7,11 @@ process FASTQC {
     beforeScript "ml fastqc/0.11.7-java-11"
 
     input:
-    tuple val(runNumber), path(fastqFilePath), val(strandedness) from fastqc_input_ch
+    tuple val(runNumber), path(fastqFilePath), val(strandedness)
 
     output:
-    tuple val(runNumber), path(fastqFilePath), val(strandedness) from fastq_align_ch
-    file("${fastqc_out}") into fastqc_ch
+    tuple val(runNumber), path(fastqFilePath), val(strandedness)
+    file("${fastqc_out}") 
 
 
     script:
@@ -35,10 +35,10 @@ process NOVOALIGN {
 
 
     input:
-        tuple val(runNumber), path(fastqFilePath), val(strandedness) from fastq_align_ch
+        tuple val(runNumber), path(fastqFilePath), val(strandedness)
     output:
-        tuple val(runNumber), val(strandedness), val(fastq_simple_name), path("*_sorted_aligned_reads.bam") into bam_align_ch
-        path "*_novosort.log" novoalign_log_ch
+        tuple val(runNumber), val(strandedness), val(fastq_simple_name), path("*_sorted_aligned_reads.bam") 
+        path "*_novosort.log" 
 
     script:
         fastq_simple_name = fastqFilePath.getSimpleName()
@@ -74,10 +74,10 @@ process HTSEQ {
 
 
     input:
-        tuple val(runNumber), val(strandedness), val(fastq_simple_name), path(sorted_bam) from bam_align_ch
+        tuple val(runNumber), val(strandedness), val(fastq_simple_name), path(sorted_bam)
     output:
-        path "*_sorted_aligned_reads_with_annote.bam" into bam_align_with_htseq_annote_ch
-        path "*.tsv" into htseq_ch
+        path "*_sorted_aligned_reads_with_annote.bam"
+        path "*.tsv" 
         path "*.log"
 
     script:
@@ -134,7 +134,7 @@ process BAM_INDEX {
 
 
     input:
-        path(bam) from bam_align_with_htseq_annote_ch
+        path(bam)
     output:
         path "*.bai"
 
@@ -156,7 +156,7 @@ process MULTIQC {
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples", pattern:"*.html"
        
     input:
-    file('*') from novoalign_log_ch.mix(htseq_ch).mix(fastqc_ch).collect()
+    file('*')
     
     output:
     file('multiqc_report.html')  
