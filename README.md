@@ -30,7 +30,7 @@ Paste in the following, with the correct paths.
 
 params {
     run_parent_dir                  = /path/to/directory_containing_the_run
-    output_dir                      = /path/to/output/dir
+    output_dir                      = /path/to/output_dir
     sample_sheet                    = /path/to/samplesheet.csv
     KN99_novoalign_index            = /path/to/kn99_novoalign_index
     KN99_stranded_annotation_file   = /path/to/stranded.gff
@@ -64,8 +64,38 @@ First, copy the data from `lts` to `scratch`. Pay attention to the trailing `/` 
 rsync -aHv `lts/mblab/sequence_data/rnaseq_data/lts_sequence/run_<number>_samples /scratch/mblab/$USER/rnaseq_samples/
 ```
 
-Next, run the pipeline
+To run the pipeline, again open your favorite text editor and create a batch script like so:
 
 ```{bash}
-nextflow run /path/to/brentlab_rnaseqpipe_nf/main.nf -c params.json
+#!/bin/bash
+#SBATCH --mem=5G
+#SBATCH -o rnaseq_pipe_nf.out
+#SBATCH -J rna_nf
+
+ml miniconda3 # or whatever conda you use, or however you get to a place where you can use nextflow
+
+source activate /scratch/mblab/$USER/conda_envs/nextflow nextflow
+
+nextflow run /path/to/brentlab_rnaseqpipe_nf/main.nf -c path/to/your_params.json
+```
+Submit it
+
+```{bash}
+sbatch /path/to/script.sh
+```
+
+## Archive the results
+
+You can check progress like so (assuming you're in the same directory from which you launch)
+
+```{bash}
+tail -50 rnaseq_pipe_nf.out
+```
+
+When the pipeline completes without error, you should move the run_<number>_samples __output__ into `/lts`.
+
+The trailing `/` are important in `rsync`. If you are unsure, ask.
+
+```{bash}
+rsync -aHv /path/to/output_dir/rnaseq_pipeline_results/run_<number>_samples lts/mblab/sequence_data/rnaseq_data/lts_align_expr
 ```
