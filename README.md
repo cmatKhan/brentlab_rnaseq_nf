@@ -1,8 +1,6 @@
-# brentlab Novoalign + htseq rnaseq pipeline
+# brentlab Novoalign + HTSeq rnaseq pipeline
 
-## Purpose
-
-This runs the 'legacy' brentlabRnaSeq pipeline, which uses the current cluster version of novoalign and htseq
+This runs the 'legacy' brentlabRnaSeq pipeline, which uses the current cluster version of novoalign and htseq. The underlying software is not updated -- samples not part of a current 'experiment set' should not use this pipeline.
 
 ## Installation
 
