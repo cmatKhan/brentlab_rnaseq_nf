@@ -159,13 +159,16 @@ process MULTIQC {
 
     beforeScript "ml multiqc"
 
-    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples", pattern:"*.html"
+    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/multiqc", pattern:"*"
        
     input:
     file('*')
     
     output:
-    file('multiqc_report.html')  
+    path "*multiqc_report.html", emit: report
+    path "*_data"              , emit: data
+    path "*_plots"             , optional:true, emit: plots
+    path "versions.yml"        , emit: versions
      
     script:
     """
