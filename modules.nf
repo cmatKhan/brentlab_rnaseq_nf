@@ -15,9 +15,9 @@ process FASTQC {
 
 
     script:
-    fastqc_out="fastqc_out"
+    fastqc_out=fastqFilePath+"_fastq"
     """
-    mkdir -p ${fastqc_out}
+    mkdir -p ${fastqc_out}_fastq
     fastqc -o ${fastqc_out} -f fastq -q ${fastqFilePath}
     """  
 }  
