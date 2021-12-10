@@ -155,6 +155,8 @@ process MULTIQC {
 
     label 'multiqc'
 
+    beforeScript "ml multiqc"
+
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples", pattern:"*.html"
        
     input:
