@@ -26,34 +26,33 @@ nextflow self-update
 open a text file in your favorite plain text editor.
 Paste in the following, with the correct paths.
 
-```{raw}
-
-params {
-    output_dir                      = /path/to/output_dir
-    sample_sheet                    = /path/to/samplesheet.csv
-    KN99_novoalign_index            = /path/to/kn99_novoalign_index
-    KN99_fasta                      = /path/to/kn99.fasta
-    KN99_stranded_annotation_file   = /path/to/stranded.gff
-    KN99_unstranded_annotation_file = /path/to/unstranded.gff
-    htseq_count_feature             = exon
+```{json}
+{
+"output_dir": "/path/to/output_dir",
+"sample_sheet": "/path/to/samplesheet.csv",
+"run_number": "4689",
+"KN99_novoalign_index": "/path/to/kn99_novoalign_index",
+"KN99_fasta": "/path/to/kn99.fasta",
+"KN99_stranded_annotation_file": "/path/to/stranded.gff",
+"KN99_unstranded_annotation_file": "/path/to/unstranded.gff",
+"htseq_count_feature": "exon"
 }
 
 ```
 
 here is an example
 
-```{raw}
-
-params {
-    output_dir                      = /scratch/mblab/$USER/rnaseq_pipeline
-    sample_sheet                    = /scratch/mblab/$USER/rnaseq_pipeline/sample_sheets/run_12345.csv
-    KN99_novoalign_index            = /scratch/mblab/$USER/rnaseq_pipeline/genome_files/KN99/novoalign.index
-    KN99_fasta                      = /scratch/mblab/$USER/rnaseq_pipeline/genome_files/KN99/kn99.fasta
-    KN99_stranded_annotation_file   = /scratch/mblab/$USER/rnaseq_pipeline/genome_files/KN99/stranded.gff
-    KN99_unstranded_annotation_file = /scratch/mblab/$USER/rnaseq_pipeline/genome_files/KN99/unstranded.gff
-    htseq_count_feature             = exon
+```{json}
+{
+"output_dir": ".",
+"sample_sheet": "run_4689.csv",
+"run_number": "4689",
+"KN99_novoalign_index": "/scratch/mblab/chasem/rnaseq_pipeline/genome_files/KN99/KN99_genome_fungidb.nix",
+"KN99_fasta": "/scratch/mblab/chasem/rnaseq_pipeline/genome_files/KN99/KN99_genome_fungidb.fasta",
+"KN99_stranded_annotation_file": "/scratch/mblab/chasem/rnaseq_pipeline/genome_files/KN99/KN99_stranded_annotations_fungidb_augment.gff",
+"KN99_unstranded_annotation_file": "/scratch/mblab/chasem/rnaseq_pipeline/genome_files/KN99/KN99_no_strand_annotations_fungidb_augment.gff",
+"htseq_count_feature": "exon"
 }
-
 ```
 
 ## Run the pipeline

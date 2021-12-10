@@ -7,10 +7,10 @@ process FASTQC {
     beforeScript "ml fastqc/0.11.7-java-11"
 
     input:
-    tuple val(runNumber), path(fastqFilePath), val(strandedness)
+    tuple path(fastqFilePath), val(strandedness)
 
     output:
-    tuple val(runNumber), path(fastqFilePath), val(strandedness)
+    tuple path(fastqFilePath), val(strandedness)
     file("${fastqc_out}/*") 
 
 
@@ -31,13 +31,13 @@ process NOVOALIGN {
     label 'align_count'
 
     beforeScript "ml novoalign/3.09.01 samtools"
-    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples/logs", overwite: true, pattern: "*.log"
+    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.runNumber}_samples/logs", overwite: true, pattern: "*.log"
 
 
     input:
-        tuple val(runNumber), path(fastqFilePath), val(strandedness)
+        tuple path(fastqFilePath), val(strandedness)
     output:
-        tuple val(runNumber), val(strandedness), val(fastq_simple_name), path("*_sorted_aligned_reads.bam") 
+        tuple val(strandedness), val(fastq_simple_name), path("*_sorted_aligned_reads.bam") 
         path "*_novosort.log" 
 
     script:
@@ -68,14 +68,14 @@ process HTSEQ {
 
     beforeScript "ml samtools htseq/0.9.1"
 
-    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples/logs", overwite: true, pattern: "*.log"
-    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples/count", overwite: true, pattern: "*.tsv"
+    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.runNumber}_samples/logs", overwite: true, pattern: "*.log"
+    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.runNumber}_samples/count", overwite: true, pattern: "*.tsv"
 
 
     input:
-        tuple val(runNumber), val(strandedness), val(fastq_simple_name), path(sorted_bam)
+        tuple val(strandedness), val(fastq_simple_name), path(sorted_bam)
     output:
-        tuple val(runNumber), path("*_sorted_aligned_reads_with_annote.bam")
+        tuple path("*_sorted_aligned_reads_with_annote.bam")
         path "*.tsv" 
         path "*.log"
 
@@ -132,10 +132,10 @@ process BAM_INDEX {
     label 'index'
     beforeScript "ml novoalign/3.09.01 samtools"
 
-    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples/align", overwite: true, pattern: "*.bam*"
+    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.runNumber}_samples/align", overwite: true, pattern: "*.bam*"
 
     input:
-        tuple val(runNumber), path(bam)
+        tuple path(bam)
     output:
         path(bam)
         path "*.bai*"
@@ -157,7 +157,7 @@ process MULTIQC {
 
     beforeScript "ml multiqc"
 
-    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples", pattern:"*.html"
+    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.runNumber}_samples", pattern:"*.html"
        
     input:
     file('*')

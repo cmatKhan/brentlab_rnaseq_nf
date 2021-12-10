@@ -39,7 +39,7 @@ workflow {
     Channel
     .fromPath(params.sample_sheet)
     .splitCsv(header:true)
-    .map{row-> tuple(row.runNumber, file(row.fastqFilePath), row.strandedness) }
+    .map{row-> tuple(file(row.fastqFilePath), row.strandedness) }
     .set { fastqc_input_ch }
       
       // PART 1: FastQC
