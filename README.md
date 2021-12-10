@@ -74,6 +74,9 @@ ml miniconda3 # or whatever conda you use, or however you get to a place where y
 
 source activate /scratch/mblab/$USER/conda_envs/nextflow nextflow
 
+# this is important
+mkdir tmp
+
 nextflow run /path/to/brentlab_rnaseqpipe_nf/main.nf -c path/to/your_params.json
 ```
 Submit it

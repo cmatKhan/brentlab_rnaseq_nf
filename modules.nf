@@ -70,7 +70,6 @@ process HTSEQ {
 
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples/logs", overwite: true, pattern: "*.log"
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples/count", overwite: true, pattern: "*.tsv"
-    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples/align", overwite: true, pattern: "*_sorted_aligned_reads_with_annote.bam"
 
 
     input:
@@ -100,11 +99,11 @@ process HTSEQ {
             samtools view --threads 8 -bS -T ${params.KN99_genome} > ${fastq_simple_name}_sorted_aligned_reads_with_annote.bam
 
             """
-        else if (strandedness == 'unstranded')
+        else 
             """
             htseq-count -f bam \\
                         -o ${fastq_simple_name}_htseq_annote.sam \\
-                        -s ${strandedness} \\
+                        -s no \\
                         -t ${params.htseq_count_feature} \\
                         -i gene \\
                         ${sorted_bam} \\
@@ -130,13 +129,13 @@ process BAM_INDEX {
 
     label 'index'
     beforeScript "ml novoalign/3.09.01 samtools"
-    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples/align", overwite: true, pattern: "*.bai"
 
+    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples/align", overwite: true, pattern: "*.bam*"
 
     input:
         path(bam)
     output:
-        path "*.bai"
+        path "*.bam*"
 
     script:
 
