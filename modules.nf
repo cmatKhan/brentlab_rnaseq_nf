@@ -15,7 +15,7 @@ process FASTQC {
 
 
     script:
-    fastqc_out="${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples/{align,logs,count,fastqc}"
+    fastqc_out="fastqc_out"
     """
     mkdir -p ${fastqc_out}
     fastqc -o ${fastqc_out} -f fastq -q ${fastqFilePath}
