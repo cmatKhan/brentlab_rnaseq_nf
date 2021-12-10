@@ -32,6 +32,7 @@ params {
     output_dir                      = /path/to/output_dir
     sample_sheet                    = /path/to/samplesheet.csv
     KN99_novoalign_index            = /path/to/kn99_novoalign_index
+    KN99_fasta                      = /path/to/kn99.fasta
     KN99_stranded_annotation_file   = /path/to/stranded.gff
     KN99_unstranded_annotation_file = /path/to/unstranded.gff
     htseq_count_feature             = exon
@@ -47,6 +48,7 @@ params {
     output_dir                      = /scratch/mblab/$USER/rnaseq_pipeline
     sample_sheet                    = /scratch/mblab/$USER/rnaseq_pipeline/sample_sheets/run_12345.csv
     KN99_novoalign_index            = /scratch/mblab/$USER/rnaseq_pipeline/genome_files/KN99/novoalign.index
+    KN99_fasta                      = /scratch/mblab/$USER/rnaseq_pipeline/genome_files/KN99/kn99.fasta
     KN99_stranded_annotation_file   = /scratch/mblab/$USER/rnaseq_pipeline/genome_files/KN99/stranded.gff
     KN99_unstranded_annotation_file = /scratch/mblab/$USER/rnaseq_pipeline/genome_files/KN99/unstranded.gff
     htseq_count_feature             = exon

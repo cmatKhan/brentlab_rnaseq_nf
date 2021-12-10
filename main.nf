@@ -15,6 +15,7 @@ Brentlab_legacy_Rnaseq  -  N F    v 2.1
 output_dir                      : $params.output_dir
 sample_sheet                    : $params.sample_sheet
 KN99_novoalign_index            : $params.KN99_novoalign_index
+KN99_fasta                      : $params.KN99_fasta
 KN99_stranded_annotation_file   : $params.KN99_stranded_annotation_file
 KN99_unstranded_annotation_file : $params.KN99_unstranded_annotation_file
 htseq_count_feature             : $params.htseq_count_feature

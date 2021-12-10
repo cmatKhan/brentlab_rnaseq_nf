@@ -96,7 +96,8 @@ process HTSEQ {
 
             samtools view --threads 8 ${sorted_bam} | \\
             paste - ${fastq_simple_name}_no_tab_sam.sam | \\
-            samtools view --threads 8 -bS -T ${params.KN99_genome} > ${fastq_simple_name}_sorted_aligned_reads_with_annote.bam
+            samtools view --threads 8 -bS -T ${params.KN99_genome} > \\
+            ${fastq_simple_name}_sorted_aligned_reads_with_annote.bam
 
             """
         else 
@@ -114,7 +115,8 @@ process HTSEQ {
 
             samtools view --threads 8 ${sorted_bam} | \\
             paste - ${fastq_simple_name}_no_tab_sam.sam | \\
-            samtools view --threads 8 -bS -T ${params.KN99_genome} > ${fastq_simple_name}_sorted_aligned_reads_with_annote.bam
+            samtools view --threads 8 -bS -T ${params.KN99_genome} > \\
+            ${fastq_simple_name}_sorted_aligned_reads_with_annote.bam
 
             """
 }
