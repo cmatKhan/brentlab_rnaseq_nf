@@ -11,13 +11,13 @@ process FASTQC {
 
     output:
     tuple val(runNumber), path(fastqFilePath), val(strandedness)
-    file("${fastqc_out}") 
+    file("${fastqc_out}/*") 
 
 
     script:
-    fastqc_out=fastqFilePath+"_fastq"
+    fastqc_out="fastqc_out"
     """
-    mkdir -p ${fastqc_out}_fastq
+    mkdir -p ${fastqc_out}
     fastqc -o ${fastqc_out} -f fastq -q ${fastqFilePath}
     """  
 }  
