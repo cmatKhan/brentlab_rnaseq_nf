@@ -75,7 +75,7 @@ process HTSEQ {
     input:
         tuple val(runNumber), val(strandedness), val(fastq_simple_name), path(sorted_bam)
     output:
-        path "*_sorted_aligned_reads_with_annote.bam"
+        tuple val(runNumber), path("*_sorted_aligned_reads_with_annote.bam")
         path "*.tsv" 
         path "*.log"
 
@@ -135,9 +135,10 @@ process BAM_INDEX {
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${runNumber}_samples/align", overwite: true, pattern: "*.bam*"
 
     input:
-        path(bam)
+        tuple val(runNumber), path(bam)
     output:
-        path "*.bam*"
+        path(bam)
+        path "*.bai*"
 
     script:
 
