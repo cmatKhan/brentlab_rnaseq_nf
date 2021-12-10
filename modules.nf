@@ -31,7 +31,7 @@ process NOVOALIGN {
     label 'align_count'
 
     beforeScript "ml novoalign/3.09.01 samtools"
-    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.runNumber}_samples/logs", overwite: true, pattern: "*.log"
+    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/logs", overwite: true, pattern: "*.log"
 
 
     input:
@@ -68,8 +68,8 @@ process HTSEQ {
 
     beforeScript "ml samtools htseq/0.9.1"
 
-    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.runNumber}_samples/logs", overwite: true, pattern: "*.log"
-    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.runNumber}_samples/count", overwite: true, pattern: "*.tsv"
+    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/logs", overwite: true, pattern: "*.log"
+    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/count", overwite: true, pattern: "*.tsv"
 
 
     input:
@@ -132,7 +132,7 @@ process BAM_INDEX {
     label 'index'
     beforeScript "ml novoalign/3.09.01 samtools"
 
-    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.runNumber}_samples/align", overwite: true, pattern: "*.bam*"
+    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/align", overwite: true, pattern: "*.bam*"
 
     input:
         tuple path(bam)
@@ -157,7 +157,7 @@ process MULTIQC {
 
     beforeScript "ml multiqc"
 
-    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.runNumber}_samples", pattern:"*.html"
+    publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples", pattern:"*.html"
        
     input:
     file('*')
