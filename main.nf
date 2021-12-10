@@ -54,6 +54,6 @@ workflow {
       BAM_INDEX(HTSEQ.out[0])
       
       // PART 3: Multiqc
-      MULTIQC(FASTQC.OUT[1].mix(NOVOALIGN.OUT[1]).mix(HTSEQ.out[1]).collect())
+      MULTIQC(FASTQC.out[1].mix(NOVOALIGN.out[1]).mix(HTSEQ.out[1]).collect())
 
 }
