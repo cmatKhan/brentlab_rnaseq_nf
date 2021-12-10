@@ -3,6 +3,8 @@
  */
 
 process FASTQC {
+
+    label 'more_cpu_mem'
    
     beforeScript "ml fastqc/0.11.7-java-11"
 
@@ -18,7 +20,7 @@ process FASTQC {
     fastqc_out="fastqc_out"
     """
     mkdir -p ${fastqc_out}
-    fastqc -o ${fastqc_out} -f fastq -q ${fastqFilePath}
+    fastqc -o ${fastqc_out} -t 8 -f fastq -q ${fastqFilePath}
     """  
 }  
 
@@ -28,7 +30,7 @@ process FASTQC {
 
 process NOVOALIGN {
 
-    label 'align_count'
+    label 'more_cpu_mem'
 
     beforeScript "ml novoalign/3.09.01 samtools"
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/logs", overwite: true, pattern: "*.log"
@@ -64,7 +66,7 @@ process NOVOALIGN {
 process HTSEQ {
 
     
-    label 'align_count'
+    label 'more_cpu_mem'
 
     beforeScript "ml samtools htseq/0.9.1"
 
@@ -129,7 +131,7 @@ process HTSEQ {
 process BAM_INDEX {
 
 
-    label 'index'
+    label 'more_cpu_mem'
     beforeScript "ml novoalign/3.09.01 samtools"
 
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/align", overwite: true, pattern: "*.bam*"
@@ -143,7 +145,7 @@ process BAM_INDEX {
     script:
 
             """
-            samtools index $bam
+            samtools index -@ 8 $bam
             """
 }
 
