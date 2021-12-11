@@ -166,8 +166,7 @@ process MULTIQC {
     
     output:
     path "*multiqc_report.html"
-    path "*_data"  
-    path "versions.yml"        
+    path "*_data"       
      
     script:
     """
