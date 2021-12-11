@@ -40,7 +40,7 @@ process NOVOALIGN {
         tuple path(fastqFilePath), val(strandedness)
     output:
         tuple val(strandedness), val(fastq_simple_name), path("*_sorted_aligned_reads.bam") 
-        path "*_novosort.log" 
+        path "*.log" 
 
     script:
         fastq_simple_name = fastqFilePath.getSimpleName()
