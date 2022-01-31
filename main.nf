@@ -45,16 +45,19 @@ workflow {
       // PART 1: FastQC
       FASTQC(fastqc_input_ch)
 
-      // PART 1: Align
+      // PART 2: Align
       NOVOALIGN(FASTQC.out[0])
       
-      // PART 2: Count
-      HTSEQ(NOVOALIGN.out[0])
+      // PART 3a: Count
+      HTSEQ_EXON(NOVOALIGN.out[0])
 
-      // PART 3: Index Bams
-      BAM_INDEX(HTSEQ.out[0])
+      // PART 3b: Count -- cds
+      HTSEQ_CDS(HTSEQ_EXON.OUT[0])
+
+      // PART 4: Index Bams
+      BAM_INDEX(HTSEQ_CDS.out[0])
       
-      // PART 3: Multiqc
-      MULTIQC(FASTQC.out[1].mix(NOVOALIGN.out[1]).mix(HTSEQ.out[1]).collect())
+      // PART 5: Multiqc
+      MULTIQC(FASTQC.out[1].mix(NOVOALIGN.out[1]).mix(HTSEQ_EXON.out[1]).collect())
 
 }
