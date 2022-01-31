@@ -4,7 +4,7 @@
 
 process FASTQC {
 
-    label 'more_cpu_mem'
+    label 'fastqc'
    
     beforeScript "ml fastqc/0.11.7-java-11"
 
@@ -30,7 +30,7 @@ process FASTQC {
 
 process NOVOALIGN {
 
-    label 'more_cpu_mem'
+    label 'align'
 
     beforeScript "ml novoalign/3.09.01 samtools"
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/logs", overwite: true, pattern: "*.log", mode: 'copy'
@@ -66,7 +66,7 @@ process NOVOALIGN {
 process HTSEQ_EXON {
 
     
-    label 'more_cpu_mem'
+    label 'htseq'
 
     beforeScript "ml samtools htseq/0.9.1"
 
@@ -131,7 +131,7 @@ process HTSEQ_EXON {
 process HTSEQ_CDS {
 
     
-    label 'more_cpu_mem'
+    label 'htseq'
 
     beforeScript "ml samtools htseq/0.9.1"
 
@@ -180,7 +180,7 @@ process HTSEQ_CDS {
 process BAM_INDEX {
 
 
-    label 'more_cpu_mem'
+    label 'index'
     beforeScript "ml novoalign/3.09.01 samtools"
 
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/align", overwite: true, pattern: "*.bam*", mode: 'copy'
