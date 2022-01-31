@@ -53,7 +53,7 @@ workflow {
       HTSEQ_EXON(NOVOALIGN.out[0])
 
       // PART 3b: Count -- cds
-      HTSEQ_CDS(HTSEQ_EXON.OUT[0])
+      HTSEQ_CDS(HTSEQ_EXON.out[0])
 
       // PART 4: Index Bams
       BAM_INDEX(HTSEQ_CDS.out[0])
