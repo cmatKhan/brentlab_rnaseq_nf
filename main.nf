@@ -27,7 +27,8 @@ htseq_count_feature             : $params.htseq_count_feature
 include { 
   FASTQC;
   NOVOALIGN;
-  HTSEQ;
+  HTSEQ_EXON;
+  HTSEQ_CDS;
   BAM_INDEX;
   MULTIQC } from './modules.nf' 
 
