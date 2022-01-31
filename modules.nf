@@ -107,7 +107,7 @@ process HTSEQ_EXON {
             htseq-count -f bam \\
                         -o ${fastq_simple_name}_htseq_annote.sam \\
                         -s no \\
-                        -t ${params.htseq_count_feature} \\
+                        -t exon \\
                         -i gene \\
                         ${sorted_bam} \\
                         ${params.KN99_unstranded_annotation_file} \\
@@ -153,7 +153,7 @@ process HTSEQ_CDS {
             htseq-count -f bam \\
                         -o ${fastq_simple_name}_htseq_annote.sam \\
                         -s ${strandedness} \\
-                        -t cds \\
+                        -t CDS \\
                         -i gene \\
                         ${sorted_bam} \\
                         ${params.KN99_stranded_annotation_file} \\
@@ -164,11 +164,11 @@ process HTSEQ_CDS {
             htseq-count -f bam \\
                         -o ${fastq_simple_name}_htseq_annote.sam \\
                         -s no \\
-                        -t ${params.htseq_count_feature} \\
+                        -t CDS \\
                         -i gene \\
                         ${sorted_bam} \\
                         ${params.KN99_unstranded_annotation_file} \\
-                        1> ${fastq_simple_name}_read_count.tsv 2> ${fastq_simple_name}_htseq.log
+                        1> ${fastq_simple_name}_read_count_cds.tsv 2> ${fastq_simple_name}_htseq.log
             """
 }
 
