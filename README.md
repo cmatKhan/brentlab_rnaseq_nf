@@ -82,9 +82,9 @@ To run the pipeline, again open your favorite text editor and create a batch scr
 
 ml miniconda3 # or whatever conda you use, or however you get to a place where you can use nextflow
 
-source activate /scratch/mblab/$USER/conda_envs/nextflow nextflow
+source activate /scratch/mblab/$USER/conda_envs/nextflow
 
-# this is important
+# this is important, don't change or delete it
 mkdir tmp
 
 nextflow run /path/to/brentlab_rnaseqpipe_nf/main.nf -c path/to/your_params.json
