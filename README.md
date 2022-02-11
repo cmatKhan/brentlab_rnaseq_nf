@@ -7,17 +7,26 @@ This runs the 'legacy' brentlabRnaSeq pipeline, which uses the current cluster v
 All you need is an environment with nextflow. This is one way
 
 ```{bash}
+# launch interactive session. Note that the memory is just a guess,
+# you likely need less. It unlikely that you need more
+srun --mem 3GB -n1 --pty bash
+
+# this is a cluster wide installation, or choose whatever you
+# typically use
 ml miniconda3
 
-mkdir /scratch/mblab/$USER/conda_envs/nextflow
+# I recommend that you use ur $USER name for your scratch dir 
+# name as it makes other tasks easier. I also recommend that 
+# you keep your environments in scratch, though it is also a 
+# good idea then to set up a cron job to touch your scratch space 
+# every week to ensure that the cluster doesn't delete your files
+mkdir -p /scratch/mblab/$USER/conda_envs
 
+# create the environment with nextflow in it
 conda create -p /scratch/mblab/$USER/conda_envs/nextflow nextflow
-```
 
-When that finishes, start the environment and update
-
-```{bash}
-source activate /scratch/mblab/$USER/conda_envs/nextflow
+# once finished, update nextflow
+conda activiate /scratch/mblab/$USER/conda_envs/nextflow
 nextflow self-update
 ```
 
