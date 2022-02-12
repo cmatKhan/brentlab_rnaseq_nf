@@ -17,7 +17,7 @@ ml miniconda3
 ```
 I recommend that you use your $USER name for your scratch dir 
 name as it makes other tasks easier. I also recommend that 
-you keep your environments in scratch. Here is a script/instructions 
+you keep your environments in scratch. [Here is a script/instructions 
 to set up a cron job to touch your scratch space every week to ensure 
 that the cluster doesn't delete your files](https://github.com/BrentLab/brentlabRnaSeqTools/blob/main/inst/bash/update_timestamps_on_cluster.sh)
 ```{bash
