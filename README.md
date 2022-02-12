@@ -14,12 +14,16 @@ srun --mem 3GB -n1 --pty bash
 # this is a cluster wide installation, or choose whatever you
 # typically use
 ml miniconda3
-
-# I recommend that you use your $USER name for your scratch dir 
-# name as it makes other tasks easier. I also recommend that 
-# you keep your environments in scratch, though it is also a 
-# good idea then to set up a cron job to touch your scratch space 
-# every week to ensure that the cluster doesn't delete your files
+```
+I recommend that you use your $USER name for your scratch dir 
+name as it makes other tasks easier. I also recommend that 
+you keep your environments in scratch. Here is a script/instructions 
+to set up a cron job to touch your scratch space every week to ensure 
+that the cluster doesn't delete your files](https://github.com/BrentLab/brentlabRnaSeqTools/blob/main/inst/bash/update_timestamps_on_cluster.sh)
+```{bash
+# assuming 
+# 1. your scratch space directory is named your username (see echo $USER)
+# 2. you want to put the conda env in a subdir of your scratch called conda_envs
 mkdir -p /scratch/mblab/$USER/conda_envs
 
 # create the environment with nextflow in it
