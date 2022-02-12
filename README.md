@@ -15,7 +15,7 @@ srun --mem 3GB -n1 --pty bash
 # typically use
 ml miniconda3
 
-# I recommend that you use ur $USER name for your scratch dir 
+# I recommend that you use your $USER name for your scratch dir 
 # name as it makes other tasks easier. I also recommend that 
 # you keep your environments in scratch, though it is also a 
 # good idea then to set up a cron job to touch your scratch space 
