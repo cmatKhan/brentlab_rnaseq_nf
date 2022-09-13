@@ -50,7 +50,7 @@ process NOVOALIGN {
                       -o SAM \\
                       -d ${params.KN99_novoalign_index} \\
                       -f ${fastqFilePath} 2> ${fastq_simple_name}_novoalign.log | \\
-            samtools view -bS | \\
+            samtools view -bSh | \\
             novosort - \\
                      --threads 8 \\
                      --markDuplicates \\
@@ -113,12 +113,13 @@ process HTSEQ_EXON {
                         ${params.KN99_unstranded_annotation_file} \\
                         1> ${fastq_simple_name}_read_count.tsv 2> ${fastq_simple_name}_htseq.log
 
-            sed "s/\t//" ${fastq_simple_name}_htseq_annote.sam > ${fastq_simple_name}_no_tab_sam.sam
+            #sed "s/\t//" ${fastq_simple_name}_htseq_annote.sam > ${fastq_simple_name}_no_tab_sam.sam
 
-            samtools view --threads 8 ${sorted_bam} | \\
-            paste - ${fastq_simple_name}_no_tab_sam.sam | \\
-            samtools view --threads 8 -bS -T ${params.KN99_fasta} > \\
-            ${fastq_simple_name}_sorted_aligned_reads_with_annote.bam
+            samtools view --threads 8 -bSh ${fastq_simple_name}_htseq_annote.sam > ${fastq_simple_name}_sorted_aligned_reads_with_annote.bam 
+            #samtools view --threads 8 ${sorted_bam} | \\
+            #paste - ${fastq_simple_name}_no_tab_sam.sam | \\
+            #samtools view --threads 8 -bS -T ${params.KN99_fasta} > \\
+            #${fastq_simple_name}_sorted_aligned_reads_with_annote.bam
 
             """
 }
