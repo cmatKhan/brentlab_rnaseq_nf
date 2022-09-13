@@ -1,7 +1,6 @@
 # brentlab Novoalign + HTSeq rnaseq pipeline
 
-This runs the 'legacy' brentlabRnaSeq pipeline, which uses the current cluster version of novoalign and htseq. The underlying software is not updated -- samples not part of a current 'experiment set' should not use this pipeline.
-
+This runs on __only__ the 'new' partition of HTCF
 ## Installation
 
 All you need is an environment with nextflow. This is one way
