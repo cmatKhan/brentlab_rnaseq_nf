@@ -32,7 +32,7 @@ process NOVOALIGN {
 
     label 'align'
 
-    beforeScript "module use /opt/htcf/modules/novoalign; eval \$(spack load --sh samtools@1.13)"
+    beforeScript "ml novoalign; eval \$(spack load --sh samtools@1.13)"
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/logs", overwite: true, pattern: "*.log", mode: 'copy'
 
 
@@ -181,7 +181,7 @@ process BAM_INDEX {
 
 
     label 'index'
-    beforeScript "module use /opt/htcf/modules/novoalign; eval \$(spack load --sh samtools@1.13)"
+    beforeScript "ml novoalign; eval \$(spack load --sh samtools@1.13)"
 
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/align", overwite: true, pattern: "*.bam*", mode: 'copy'
 
