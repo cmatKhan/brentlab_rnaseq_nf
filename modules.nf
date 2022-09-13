@@ -6,7 +6,7 @@ process FASTQC {
 
     label 'fastqc'
    
-    beforeScript "eval $(spack load --sh fastqc)"
+    beforeScript "eval \$(spack load --sh fastqc)"
 
     input:
     tuple path(fastqFilePath), val(strandedness)
@@ -32,7 +32,7 @@ process NOVOALIGN {
 
     label 'align'
 
-    beforeScript "module use /opt/htcf/modules; module load novoalign; eval $(spack load --sh samtools)"
+    beforeScript "module use /opt/htcf/modules; module load novoalign; eval \$(spack load --sh samtools)"
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/logs", overwite: true, pattern: "*.log", mode: 'copy'
 
 
@@ -68,7 +68,7 @@ process HTSEQ_EXON {
     
     label 'htseq'
 
-    beforeScript "eval $(spack load --sh py-htseq)"
+    beforeScript "eval \$(spack load --sh py-htseq)"
 
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/logs", overwite: true, pattern: "*.log", mode: 'copy'
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/count", overwite: true, pattern: "*.tsv", mode: 'copy'
@@ -133,7 +133,7 @@ process HTSEQ_CDS {
     
     label 'htseq'
 
-    beforeScript "eval $(spack load --sh py-htseq samtools"
+    beforeScript "eval \$(spack load --sh py-htseq samtools"
 
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/logs", overwite: true, pattern: "*.log", mode: 'copy'
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/count", overwite: true, pattern: "*.tsv", mode: 'copy'
@@ -181,7 +181,7 @@ process BAM_INDEX {
 
 
     label 'index'
-    beforeScript "module use /opt/htcf/modules; module load novoalign; eval $(spack load --sh samtools)"
+    beforeScript "module use /opt/htcf/modules; module load novoalign; eval \$(spack load --sh samtools)"
 
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/align", overwite: true, pattern: "*.bam*", mode: 'copy'
 
@@ -206,7 +206,7 @@ process MULTIQC {
 
     label 'multiqc'
 
-    beforeScript "eval $(spack load --sh py-multiqc)"
+    beforeScript "eval \$(spack load --sh py-multiqc)"
 
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/multiqc", pattern:"*", mode: 'copy'
        
