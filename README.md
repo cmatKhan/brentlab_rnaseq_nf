@@ -6,17 +6,30 @@ This runs on __only__ the 'new' partition of HTCF
 All you need is an environment with nextflow. This is one way
 
 ```{bash}
+# launch interactive session. Note that the memory is just a guess,
+# you likely need less. It unlikely that you need more
+srun --mem 3GB -n1 --pty bash
+
+# this is a cluster wide installation, or choose whatever you
+# typically use
 ml miniconda3
-
-mkdir /scratch/mblab/$USER/conda_envs/nextflow
-
-conda create -p /scratch/mblab/$USER/conda_envs/nextflow nextflow
 ```
+I recommend that you use your $USER name for your scratch dir 
+name as it makes other tasks easier. I also recommend that 
+you keep your environments in scratch. [Here is a script/instructions 
+to set up a cron job to touch your scratch space every week to ensure 
+that the cluster doesn't delete your files](https://github.com/BrentLab/brentlabRnaSeqTools/blob/main/inst/bash/update_timestamps_on_cluster.sh)
+```{bash
+# assuming 
+# 1. your scratch space directory is named your username (see echo $USER)
+# 2. you want to put the conda env in a subdir of your scratch called conda_envs
+mkdir -p /scratch/mblab/$USER/conda_envs
 
-When that finishes, start the environment and update
+# create the environment with nextflow in it
+conda create -p /scratch/mblab/$USER/conda_envs/nextflow nextflow
 
-```{bash}
-source activate /scratch/mblab/$USER/conda_envs/nextflow
+# once finished, update nextflow
+conda activiate /scratch/mblab/$USER/conda_envs/nextflow
 nextflow self-update
 ```
 
@@ -72,9 +85,9 @@ To run the pipeline, again open your favorite text editor and create a batch scr
 
 ml miniconda3 # or whatever conda you use, or however you get to a place where you can use nextflow
 
-source activate /scratch/mblab/$USER/conda_envs/nextflow nextflow
+source activate /scratch/mblab/$USER/conda_envs/nextflow
 
-# this is important
+# this is important, don't change or delete it
 mkdir tmp
 
 nextflow run /path/to/brentlab_rnaseqpipe_nf/main.nf -c path/to/your_params.json
