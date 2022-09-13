@@ -32,7 +32,7 @@ process NOVOALIGN {
 
     label 'align'
 
-    beforeScript "module use /opt/htcf/modules; module load novoalign; eval \$(spack load --sh samtools)"
+    beforeScript "module use /opt/htcf/modules; module load novoalign; eval \$(spack load --sh samtools@1.13)"
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/logs", overwite: true, pattern: "*.log", mode: 'copy'
 
 
@@ -133,7 +133,7 @@ process HTSEQ_CDS {
     
     label 'htseq'
 
-    beforeScript "eval \$(spack load --sh py-htseq samtools"
+    beforeScript "eval \$(spack load --sh py-htseq samtools@1.13"
 
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/logs", overwite: true, pattern: "*.log", mode: 'copy'
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/count", overwite: true, pattern: "*.tsv", mode: 'copy'
@@ -181,12 +181,12 @@ process BAM_INDEX {
 
 
     label 'index'
-    beforeScript "module use /opt/htcf/modules; module load novoalign; eval \$(spack load --sh samtools)"
+    beforeScript "module use /opt/htcf/modules; module load novoalign; eval \$(spack load --sh samtools@1.13)"
 
     publishDir "${params.output_dir}/rnaseq_pipeline_results/run_${params.run_number}_samples/align", overwite: true, pattern: "*.bam*", mode: 'copy'
 
     input:
-        tuple path(bam)
+        path(bam)
     output:
         path(bam)
         path "*.bai*"
